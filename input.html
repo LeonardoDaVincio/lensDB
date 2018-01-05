@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+</head>
+
+<body>
+	<div class="container">
+		
+		<form action="admin/objektivdb.php" method="post">
+			<div class="row">
+				
+				<div class="col-sm-4">
+					<h2>Data <small>technical</small></h2>
+					<div class="form-group">
+						<label class="form-control-label" for="name_input">Name:</label>
+						<input class="form-control" id="name_input" type="text" name="name" placeholder="Enter name">
+					</div>
+					<div class="form-group">
+						<label class="form-control-label" for="focal_length_input">Focal Length:</label>
+						<input class="form-control" id="focal_length_input" type="text" name="focal_length" placeholder="Focal length">
+					</div>
+					
+					<div class="form-group">
+						<label class="form-control-label" for="focal_input">Focal:</label>
+						<input class="form-control" id="focal_input" type="text" name="focal" placeholder="Focal">
+					</div>
+					<div class="form-group">
+						<label class="form-control-label" for="mount_input">Mount:</label>
+						<input class="form-control" id="mount_input" type="text" name="mount" placeholder="Mount">
+					</div>
+				</div>
+				
+				<div class="col-sm-4">
+				<h2>Images <small>aesthetical</small></h2>
+				<div class="form-group">
+						<label class="form-control-label" for="img_front_input">Front Image URL:</label>
+						<input class="form-control" id="img_front_input" type="url" name="img_front" placeholder="Enter url to front image">
+					</div>
+					<div class="form-group">
+						<label class="form-control-label" for="img_back_input">Back Image URL:</label>
+						<input class="form-control" id="img_back_input" type="url" name="img_back" placeholder="Enter url to back image">
+					</div>
+					<div class="form-group">
+						<label class="form-control-label" for="img_close_input">Close Image URL:</label>
+						<input class="form-control" id="img_close_input" type="url" name="img_close" placeholder="Enter url to close image">
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<h2>Money <small>capitalistical</small></h2>
+					<div class="form-group">
+						<label class="form-control-label" for="price_in_input">Price in:</label>
+						<input class="form-control" id="price_in_input" type="text" name="price_in" placeholder="Price in">
+					</div>
+					<div class="form-group">
+						<label class="form-control-label" for="price_out_input">Price out:</label>
+						<input class="form-control" id="price_out_input" type="text" name="price_out" placeholder="Price out">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="form-group">
+						<button type="submit" class="btn btn-primary form-control">Submit</button>
+					</div>
+				</div>
+			</div>
+
+			
+		</form>
+		
+	</div>
+</div>
+</body>
+</html>
