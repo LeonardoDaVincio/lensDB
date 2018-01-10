@@ -13,7 +13,7 @@
 	<div class="container">
 		<?php
 		ini_set('display_errors', 'On');
-		error_reporting(E_ALL | E_STRICT);
+		error_reporting(E_ALL);
 
 		/**
 		* Class for list object
@@ -62,14 +62,14 @@
 			}
 		}
 
-		$dbh = new PDO("sqlite:inventory.sqlite");
+		$dbh = new PDO("sqlite:../inventory.sqlite");
 		$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 
 		$insert = $dbh->prepare("INSERT INTO lenses (name, condition, notes, focal_length, focal, mount, price_in, price_out) VALUES (:name, :condition, :notes, :focal_length, :focal, :mount, :price_in, :price_out)");
 
 
-		if(isset($_POST["name"], $_POST["condition"], $_POST["notes"],
+		if(isset($_POST["name"], /*$_POST["condition"], $_POST["notes"], */
 			$_POST["focal_length"], $_POST["focal"], $_POST["mount"],
 			$_POST["price_in"], $_POST["price_out"])){
 
