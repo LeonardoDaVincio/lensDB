@@ -6,8 +6,8 @@
 	name TEXT NOT NULL,
 	condition TEXT,
 	notes TEXT,
-	focal_length INTEGER,
-	focal REAL,
+	focal_length TEXT,
+	focal TEXT,
 	mount TEXT,
 	price_in DECIMAL(10,2),
 	price_out DECIMAL (10,2))");
