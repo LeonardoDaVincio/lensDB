@@ -11,6 +11,7 @@
 
 <body>
 	<div class="container">
+		<a class="btn btn-primary" href="index.html">Create new Entry</a>
 		<?php
 		ini_set('display_errors', 'On');
 		error_reporting(E_ALL);
