@@ -13,8 +13,7 @@
 	<div class="container">
 		<a class="btn btn-primary" href="index.html">Create new Entry</a>
 		<?php
-		ini_set('display_errors', 'On');
-		error_reporting(E_ALL);
+		require "db.php";
 
 		/**
 		* Class for list object
@@ -64,9 +63,6 @@
 			}
 		}
 
-		$dbh = new PDO("sqlite:../inventory.sqlite");
-		$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
 		$insert = $dbh->prepare("INSERT INTO lenses (name, condition, notes, focal_length, focal, mount, price_in, price_out) VALUES (:name, :condition, :notes, :focal_length, :focal, :mount, :price_in, :price_out)");
 
 
@@ -90,9 +86,12 @@
 			$insert->bindParam(':mount', $mount);
 			$insert->bindParam(':price_in', $price_in);
 			$insert->bindParam(':price_out', $price_out);
-			$insert->execute();
-
-			echo("<h1>Lens added!</h1>");
+			$success = $insert->execute();
+			if ($success){
+				echo("<h1>Lens added!</h1>");
+			} else {
+				echo("<h1>Error Adding Lens</h1>");
+			}
 
 		}
 		
