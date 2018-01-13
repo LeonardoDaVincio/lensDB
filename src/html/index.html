@@ -10,7 +10,6 @@
 
 <body>
 	<div class="container">
-		<!--<form action="admin/post.php" method="post">-->
 			<form id="lens_form">
 				<div class="row">
 
@@ -89,7 +88,7 @@
 
     			console.log('start request');
     			request = $.ajax({
-        			url: "admin/post.php",
+        			url: "post.php",
         			type: "post",
         			data: serializedData
     			});
@@ -97,7 +96,7 @@
     			request.done(function (response, textStatus, jqXHR){
         			// Log a message to the console
         			if(confirm("Lens added! \nGo to list?")){
-        				document.location.href = "admin/objektivdbv2.php";
+        				document.location.href = "lensdb.php";
         			};
         			console.log('worked');
     			});
@@ -107,7 +106,7 @@
         			console.log('failed');
         			alert(
             			"The following error occurred: "+
-            			textStatus, errorThrown
+            			jqXHR.status + " " + errorThrown
         			);
     			});
 

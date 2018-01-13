@@ -1,15 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head></head>
-<body>
-	<?php
-	ini_set('display_errors', 'On');
-	error_reporting(E_ALL | E_STRICT);
-
-	$dbh = new PDO("sqlite:inventory.sqlite");
-	$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-
+<?php
+	require "db.php";
 	$insert = $dbh->prepare("UPDATE lenses
 		SET name = :name,
 			condition = :condition,
@@ -43,9 +33,11 @@
 	
 	$insert->bindParam(':price_in', $price_in);
 	$insert->bindParam(':price_out', $price_out);
-	$insert->execute();
+	$success = $insert->execute();
+	if ($success){
+		http_response_code(204);
+	} else {
+		http_response_code(400);
+	}
 }
-
 ?>
-
-</body>

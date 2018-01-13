@@ -11,9 +11,9 @@
 
 <body>
 	<div class="container">
+		<a class="btn btn-primary" href="index.html">Create new Entry</a>
 		<?php
-		ini_set('display_errors', 'On');
-		error_reporting(E_ALL | E_STRICT);
+		require "db.php";
 
 		/**
 		* Class for list object
@@ -63,9 +63,38 @@
 			}
 		}
 
-		$dbh = new PDO("sqlite:inventory.sqlite");
-		$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$insert = $dbh->prepare("INSERT INTO lenses (name, condition, notes, focal_length, focal, mount, price_in, price_out) VALUES (:name, :condition, :notes, :focal_length, :focal, :mount, :price_in, :price_out)");
 
+
+		if(isset($_POST["name"], $_POST["condition"], $_POST["notes"], 
+			$_POST["focal_length"], $_POST["focal"], $_POST["mount"],
+			$_POST["price_in"], $_POST["price_out"])){
+
+			$name = $_POST["name"];
+			$condition = $_POST["condition"];
+			$notes = $_POST["notes"];
+			$focal_length = $_POST["focal_length"];
+			$focal = $_POST["focal"];
+			$mount = $_POST["mount"];
+			$price_in = $_POST["price_in"];
+			$price_out = $_POST["price_out"];
+			$insert->bindParam(':name', $name);
+			$insert->bindParam(':condition', $condition);
+			$insert->bindParam(':notes', $notes);
+			$insert->bindParam(':focal_length', $focal_length);
+			$insert->bindParam(':focal', $focal);
+			$insert->bindParam(':mount', $mount);
+			$insert->bindParam(':price_in', $price_in);
+			$insert->bindParam(':price_out', $price_out);
+			$success = $insert->execute();
+			if ($success){
+				echo("<h1>Lens added!</h1>");
+			} else {
+				echo("<h1>Error Adding Lens</h1>");
+			}
+
+		}
+		
 		$query = $dbh->prepare("SELECT * from lenses");
 		$query->execute();
 

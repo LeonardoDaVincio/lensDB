@@ -1,15 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head></head>
-<body>
-	<?php
-	ini_set('display_errors', 'On');
-	error_reporting(E_ALL | E_STRICT);
-
-	$dbh = new PDO("sqlite:inventory.sqlite");
-	$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-
+<?php
+	require "db.php";
 	$insert = $dbh->prepare("INSERT INTO lenses (name, condition, notes, focal_length, focal, mount, price_in, price_out) VALUES (:name, :condition, :notes, :focal_length, :focal, :mount, :price_in, :price_out)");
 
 
@@ -17,7 +7,7 @@
 		$_POST["focal_length"], $_POST["focal"], $_POST["mount"],
 		$_POST["price_in"], $_POST["price_out"])){
 
-		$name = $_POST["name"];
+	$name = $_POST["name"];
 	$condition = $_POST["condition"];
 	$notes = $_POST["notes"];
 	$focal_length = $_POST["focal_length"];
@@ -33,9 +23,12 @@
 	$insert->bindParam(':mount', $mount);
 	$insert->bindParam(':price_in', $price_in);
 	$insert->bindParam(':price_out', $price_out);
-	$insert->execute();
+	$success = $insert->execute();
+	if ($success){
+		http_response_code(201);
+	} else {
+		http_response_code(400);
+	}
+	//TODO check if successful, then return status code
 }
-
 ?>
-
-</body>
