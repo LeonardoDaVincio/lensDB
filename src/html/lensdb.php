@@ -4,14 +4,20 @@
 <!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-	<script   src="https://code.jquery.com/jquery-3.2.1.min.js"   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="   crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+	
 	
 </head>
 
 <body>
+	<nav class="navbar navbar-dark bg-dark">
+		<span class="navbar-brand mb-0 h1">Lens DB</span>
+			<a class="btn btn-outline-light" href="index.html">Create new Entry</a>
+  <!-- Navbar content -->
+</nav>
 	<div class="container">
-		<a class="btn btn-primary" href="index.html">Create new Entry</a>
+
+		
 		<?php
 		require "db.php";
 
@@ -100,22 +106,78 @@
 
 		$result = $query->fetchAll();
 
-		$cash = $dbh->prepare("SELECT sum(price_in) - sum(price_out) from lenses");
-		$cash->execute();
+		$cost = $dbh->prepare("SELECT sum(price_in) from lenses");
+		$cost->execute();
 
-		$cash_result = $cash->fetchAll();
+		$cost_result = $cost->fetchAll();
+
+		$revenue = $dbh->prepare("SELECT sum(price_out) from lenses");
+		$revenue->execute();
+
+		$revenue_result = $revenue->fetchAll();
+
+		$profit_result = ($cost_result[0][0] - $revenue_result[0][0]) * (-1);
 
 		$ppl = $dbh->prepare("SELECT (sum(price_in) - sum(price_out)) / count(id) from lenses");
 		$ppl->execute();
 
 		$ppl_result = $ppl->fetchAll();
 
-		echo("<h1>Lens DB</h1>");
+		$lens_count_sold = $dbh->prepare("SELECT count(id) from lenses WHERE price_out != 0");
+		$lens_count_sold->execute();
 
-		echo "<h2> Overall balance: " . $cash_result[0][0] * -1 . "</h2>";
-		echo "<h2> Overall price per lens: " . $ppl_result[0][0] . "</h2>";
+		$lens_count_sold_result = $lens_count_sold->fetchAll();
 
-		echo "<table class='table table-striped tablesorter'>";
+		$lens_count_stock = $dbh->prepare("SELECT count(id) from lenses WHERE price_out = 0");
+		$lens_count_stock->execute();
+
+		$lens_count_stock_result = $lens_count_stock->fetchAll();
+
+		$lens_all = intval($lens_count_stock_result[0][0]) + intval($lens_count_sold_result[0][0]);
+
+		echo "<h1>Overview Money</h1>";
+
+		echo "<table class='table table-striped table-sm'>";
+		echo "<thead>";
+		echo "<tr>";
+		echo "<th scope='col'>Cost</th>";
+		echo "<th scope='col'>Revenue</th>";
+		echo "<th scope='col'>Profit</th>";
+		echo "<th scope='col'>PPL</th>";
+		echo "</tr>";
+		echo "</thead>";
+		echo "<tbody>";
+		echo "<tr>";
+		echo "<td>" . $cost_result[0][0] . "</td>";
+		echo "<td>" . $revenue_result[0][0] . "</td>";
+		echo "<td>" . $profit_result . "</td>";
+		echo "<td>" . $ppl_result[0][0] . "</td>";
+		echo "</tr>";
+		echo "</tbody>";
+		echo "</table>";
+
+		echo "<h1>Overview Lenses</h1>";
+
+		echo "<table class='table table-striped table-sm'>";
+		echo "<thead>";
+		echo "<tr>";
+		echo "<th scope='col'>Lens count</th>";
+		echo "<th scope='col'>Lenses sold</th>";
+		echo "<th scope='col'>Lenses in stock</th>";
+		echo "</tr>";
+		echo "</thead>";
+		echo "<tbody>";
+		echo "<tr>";
+		echo "<td>" . $lens_all . "</td>";
+		echo "<td>" . $lens_count_sold_result[0][0] . "</td>";
+		echo "<td>" . $lens_count_stock_result[0][0] . "</td>";
+		echo "</tr>";
+		echo "</tbody>";
+		echo "</table>";
+
+		echo "<h1>Lenses</h1>";
+
+		echo "<table class='table table-striped'>";
 		echo "<thead>";
 		echo "<tr>";
 		echo "<th scope='col'>Name</th>";
@@ -140,8 +202,12 @@
 		echo "</tbody></table>";
 
 	?>
-</div>
 
+	<a class="btn btn-dark" href="index.html">Create new Entry</a>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
 <script type="text/javascript">
 
 			var request;
@@ -177,76 +243,9 @@
 
     			request.done(function (response, textStatus, jqXHR){
         			// Log a message to the console
-        			alert('Lens edited successfully!  ' + e_id +" "+ e_name+" "+e_focal_length+" "+e_focal+" "+e_price_in+" "+e_price_out+" "+e_condition+" "+e_notes);
+        			alert('Lens edited successfully!');
     			});
 			}
-
-			$('#lens_form').submit(function(event) {
-				event.preventDefault();
-
-				if (request) {
-        			request.abort();
-    			}
-
-    			var $form = $(this);
-
-    			var $inputs = $form.find("input, textarea");
-
-    			var serializedData = $form.serialize();
-
-    			$inputs.prop("disabled", true);
-
-    			console.log('start request');
-    			request = $.ajax({
-        			url: "admin/post.php",
-        			type: "post",
-        			data: serializedData
-    			});
-
-    			request.done(function (response, textStatus, jqXHR){
-        			// Log a message to the console
-        			if(confirm("Lens added!\nGo to list?")){
-        				document.location.href = "admin/objektivdbv2.php";
-        			};
-        			console.log('worked');
-    			});
-
-    			request.fail(function (jqXHR, textStatus, errorThrown){
-        			// Log the error to the console
-        			console.log('failed');
-        			alert(
-            			"The following error occurred: "+
-            			textStatus, errorThrown
-        			);
-    			});
-
-    			request.always(function () {
-        			// Reenable the inputs
-        			console.log('Nothing');
-        			$inputs.prop("disabled", false);
-    			});
-
-				/**
-				$.ajax({
-					name: 'post.php',
-					type: 'POST',
-					data: {
-						name: $('#name_input').val(),
-						focal_length: $('#focal_length_input').val(),
-						focal: $('#focal_input').val(),
-						mount: $('#mount_input').val(),
-						condition: $('#condition_input').val(),
-						notes: $('#notes_input').val(),
-						price_in: $('#price_in_input').val(),
-						price_out: $('#price_out_input').val(),
-
-					},
-					success: function(msg) {
-						alert('Lens added!');
-					}               
-				});
-				**/
-			});
 
 		</script>
 </body>
