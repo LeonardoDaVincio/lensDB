@@ -4,140 +4,210 @@
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
 	<script   src="https://code.jquery.com/jquery-3.2.1.min.js"   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="   crossorigin="anonymous"></script>
 </head>
 
 <body>
 	<div class="container">
-			<form id="lens_form">
-				<div class="row">
 
-					<div class="col-sm-4">
-						<h2>Data <small>technical</small></h2>
-						<div class="form-group">
-							<label class="form-control-label" for="name_input">Name:</label>
-							<input class="form-control" id="name_input" type="text" name="name" placeholder="Enter name">
-						</div>
-						<div class="form-group">
-							<label class="form-control-label" for="focal_length_input">Focal Length:</label>
-							<input class="form-control" id="focal_length_input" type="text" name="focal_length" placeholder="Focal length">
-						</div>
+		<ul class="nav nav-tabs" id="myTab" role="tablist">
+			<li class="nav-item">
+				<a class="nav-link active" id="lens-tab" data-toggle="tab" href="#lens" role="tab" aria-controls="lens" aria-selected="true">Add lens</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="cam-tab" data-toggle="tab" href="#cam" role="tab" aria-controls="cam" aria-selected="false">Add Other</a>
+			</li>
+		</ul>
 
-						<div class="form-group">
-							<label class="form-control-label" for="focal_input">Focal:</label>
-							<input class="form-control" id="focal_input" type="text" name="focal" placeholder="Focal">
+		<div class="tab-content" id="myTabContent">
+			<div class="tab-pane fade show active" id="lens" role="tabpanel" aria-labelledby="lens-tab">
+				<form id="lens_form">
+					<div class="row">
+
+						<div class="col-sm-4">
+							<h2>Data <small>technical</small></h2>
+							<div class="form-group">
+								<label class="form-control-label" for="name_input">Name:</label>
+								<input class="form-control" id="name_input" type="text" name="name" placeholder="Enter name">
+							</div>
+							<div class="form-group">
+								<label class="form-control-label" for="focal_length_input">Focal Length:</label>
+								<input class="form-control" id="focal_length_input" type="text" name="focal_length" placeholder="Focal length">
+							</div>
+
+							<div class="form-group">
+								<label class="form-control-label" for="focal_input">Focal:</label>
+								<input class="form-control" id="focal_input" type="text" name="focal" placeholder="Focal">
+							</div>
+							<div class="form-group">
+								<label class="form-control-label" for="mount_input">Mount:</label>
+								<input class="form-control" id="mount_input" type="text" name="mount" placeholder="Mount">
+							</div>
 						</div>
-						<div class="form-group">
-							<label class="form-control-label" for="mount_input">Mount:</label>
-							<input class="form-control" id="mount_input" type="text" name="mount" placeholder="Mount">
+						<div class="col-sm-4">
+							<h2>Notes <small>informistical</small></h2>
+							<div class="form-group">
+								<label class="form-control-label" for="condition_input">Condition:</label>
+								<input class="form-control" id="condition_input" type="text" name="condition" placeholder="Condition">
+							</div>
+							<div class="form-group">
+								<label class="form-control-label" for="notes_input">Notes:</label>
+								<input class="form-control" id="notes_input" type="text" name="notes" placeholder="Notes">
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<h2>Money <small>capitalistical</small></h2>
+							<div class="form-group">
+								<label class="form-control-label" for="price_in_input">Price in:</label>
+								<input class="form-control" id="price_in_input" type="text" name="price_in" placeholder="Price in">
+							</div>
+							<div class="form-group">
+								<label class="form-control-label" for="price_out_input">Price out:</label>
+								<input class="form-control" id="price_out_input" type="text" name="price_out" placeholder="Price out">
+							</div>
 						</div>
 					</div>
-					<div class="col-sm-4">
-						<h2>Notes <small>informistical</small></h2>
-						<div class="form-group">
-							<label class="form-control-label" for="condition_input">Condition:</label>
-							<input class="form-control" id="condition_input" type="text" name="condition" placeholder="Condition">
-						</div>
-						<div class="form-group">
-							<label class="form-control-label" for="notes_input">Notes:</label>
-							<input class="form-control" id="notes_input" type="text" name="notes" placeholder="Notes">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="form-group">
+								<button type="submit" class="btn btn-primary form-control">Submit</button>
+							</div>
 						</div>
 					</div>
-					<div class="col-sm-4">
-						<h2>Money <small>capitalistical</small></h2>
-						<div class="form-group">
-							<label class="form-control-label" for="price_in_input">Price in:</label>
-							<input class="form-control" id="price_in_input" type="text" name="price_in" placeholder="Price in">
+				</form>
+			</div>
+			<div class="tab-pane fade" id="cam" role="tabpanel" aria-labelledby="cam-tab">
+				<form id="cam_form">
+					<div class="row">
+
+						<div class="col-sm-4">
+							
 						</div>
-						<div class="form-group">
-							<label class="form-control-label" for="price_out_input">Price out:</label>
-							<input class="form-control" id="price_out_input" type="text" name="price_out" placeholder="Price out">
+						<div class="col-sm-4">
+							<h2>Data <small>informistical</small></h2>
+							<div class="form-group">
+								<label class="form-control-label" for="price_input">Price:</label>
+								<input class="form-control" id="price_input" type="text" name="price" placeholder="Price">
+							</div>
+							<div class="form-group">
+								<label class="form-control-label" for="item_input">Item:</label>
+								<input class="form-control" id="item_input" type="text" name="item" placeholder="Item">
+							</div>
+							<div class="form-group">
+								<button type="submit" class="btn btn-primary form-control">Submit</button>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							
 						</div>
 					</div>
-				</div>
-				<div class="row">
-					<div class="col-sm-12">
-						<div class="form-group">
-							<button type="submit" class="btn btn-primary form-control">Submit</button>
-						</div>
-					</div>
-				</div>
-			</form>
+				</form>
+			</div>
 		</div>
 	</div>
+</div>
 
-	<script type="text/javascript">
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
 
-			var request;
+<script type="text/javascript">
 
-			$('#lens_form').submit(function(event) {
-				event.preventDefault();
+	var request;
 
-				if (request) {
-        			request.abort();
-    			}
+	$('#lens_form').submit(function(event) {
+		event.preventDefault();
 
-    			var $form = $(this);
+		if (request) {
+			request.abort();
+		}
 
-    			var $inputs = $form.find("input, textarea");
+		var $form = $(this);
 
-    			var serializedData = $form.serialize();
+		var $inputs = $form.find("input, textarea");
 
-    			$inputs.prop("disabled", true);
+		var serializedData = $form.serialize();
 
-    			console.log('start request');
-    			request = $.ajax({
-        			url: "post.php",
-        			type: "post",
-        			data: serializedData
-    			});
+		$inputs.prop("disabled", true);
 
-    			request.done(function (response, textStatus, jqXHR){
+		console.log('start request');
+		request = $.ajax({
+			url: "post.php",
+			type: "post",
+			data: serializedData
+		});
+
+		request.done(function (response, textStatus, jqXHR){
         			// Log a message to the console
         			if(confirm("Lens added! \nGo to list?")){
         				document.location.href = "lensdb.php";
         			};
         			console.log('worked');
-    			});
+        		});
 
-    			request.fail(function (jqXHR, textStatus, errorThrown){
+		request.fail(function (jqXHR, textStatus, errorThrown){
         			// Log the error to the console
         			console.log('failed');
         			alert(
-            			"The following error occurred: "+
-            			jqXHR.status + " " + errorThrown
-        			);
-    			});
+        				"The following error occurred: "+
+        				jqXHR.status + " " + errorThrown
+        				);
+        		});
 
-    			request.always(function () {
+		request.always(function () {
         			// Reenable the inputs
         			console.log('Nothing');
         			$inputs.prop("disabled", false);
-    			});
+        		});
+	});
 
-				/**
-				$.ajax({
-					name: 'post.php',
-					type: 'POST',
-					data: {
-						name: $('#name_input').val(),
-						focal_length: $('#focal_length_input').val(),
-						focal: $('#focal_input').val(),
-						mount: $('#mount_input').val(),
-						condition: $('#condition_input').val(),
-						notes: $('#notes_input').val(),
-						price_in: $('#price_in_input').val(),
-						price_out: $('#price_out_input').val(),
+		$('#cam_form').submit(function(event) {
+		event.preventDefault();
 
-					},
-					success: function(msg) {
-						alert('Lens added!');
-					}               
-				});
-				**/
-			});
+		if (request) {
+			request.abort();
+		}
 
-		</script>
+		var $form = $(this);
+
+		var $inputs = $form.find("input, textarea");
+
+		var serializedData = $form.serialize();
+
+		$inputs.prop("disabled", true);
+
+		console.log('start request');
+		request = $.ajax({
+			url: "post_misc.php",
+			type: "post",
+			data: serializedData
+		});
+
+		request.done(function (response, textStatus, jqXHR){
+        			// Log a message to the console
+        			if(confirm("Cam added! \nGo to list?")){
+        				document.location.href = "lensdb.php";
+        			};
+        			console.log('worked');
+        		});
+
+		request.fail(function (jqXHR, textStatus, errorThrown){
+        			// Log the error to the console
+        			console.log('failed');
+        			alert(
+        				"The following error occurred: "+
+        				jqXHR.status + " " + errorThrown
+        				);
+        		});
+
+		request.always(function () {
+        			// Reenable the inputs
+        			console.log('Nothing');
+        			$inputs.prop("disabled", false);
+        		});
+	});
+
+</script>
 </body>
 </html>

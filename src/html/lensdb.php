@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- Required meta tags -->
+	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
@@ -12,9 +12,9 @@
 <body>
 	<nav class="navbar navbar-dark bg-dark">
 		<span class="navbar-brand mb-0 h1">Lens DB</span>
-			<a class="btn btn-outline-light" href="index.html">Create new Entry</a>
-  <!-- Navbar content -->
-</nav>
+		<a class="btn btn-outline-light" href="index.html">Create new Entry</a>
+		<!-- Navbar content -->
+	</nav>
 	<div class="container">
 
 		
@@ -77,129 +77,135 @@
 			$_POST["price_in"], $_POST["price_out"])){
 
 			$name = $_POST["name"];
-			$condition = $_POST["condition"];
-			$notes = $_POST["notes"];
-			$focal_length = $_POST["focal_length"];
-			$focal = $_POST["focal"];
-			$mount = $_POST["mount"];
-			$price_in = $_POST["price_in"];
-			$price_out = $_POST["price_out"];
-			$insert->bindParam(':name', $name);
-			$insert->bindParam(':condition', $condition);
-			$insert->bindParam(':notes', $notes);
-			$insert->bindParam(':focal_length', $focal_length);
-			$insert->bindParam(':focal', $focal);
-			$insert->bindParam(':mount', $mount);
-			$insert->bindParam(':price_in', $price_in);
-			$insert->bindParam(':price_out', $price_out);
-			$success = $insert->execute();
-			if ($success){
-				echo("<h1>Lens added!</h1>");
-			} else {
-				echo("<h1>Error Adding Lens</h1>");
-			}
-
-		}
-		
-		$query = $dbh->prepare("SELECT * from lenses");
-		$query->execute();
-
-		$result = $query->fetchAll();
-
-		$cost = $dbh->prepare("SELECT sum(price_in) from lenses");
-		$cost->execute();
-
-		$cost_result = $cost->fetchAll();
-
-		$revenue = $dbh->prepare("SELECT sum(price_out) from lenses");
-		$revenue->execute();
-
-		$revenue_result = $revenue->fetchAll();
-
-		$profit_result = ($cost_result[0][0] - $revenue_result[0][0]) * (-1);
-
-		$ppl = $dbh->prepare("SELECT (sum(price_in) - sum(price_out)) / count(id) from lenses");
-		$ppl->execute();
-
-		$ppl_result = $ppl->fetchAll();
-
-		$lens_count_sold = $dbh->prepare("SELECT count(id) from lenses WHERE price_out != 0");
-		$lens_count_sold->execute();
-
-		$lens_count_sold_result = $lens_count_sold->fetchAll();
-
-		$lens_count_stock = $dbh->prepare("SELECT count(id) from lenses WHERE price_out = 0");
-		$lens_count_stock->execute();
-
-		$lens_count_stock_result = $lens_count_stock->fetchAll();
-
-		$lens_all = intval($lens_count_stock_result[0][0]) + intval($lens_count_sold_result[0][0]);
-
-		echo "<h1>Overview Money</h1>";
-
-		echo "<table class='table table-striped table-sm'>";
-		echo "<thead>";
-		echo "<tr>";
-		echo "<th scope='col'>Cost</th>";
-		echo "<th scope='col'>Revenue</th>";
-		echo "<th scope='col'>Profit</th>";
-		echo "<th scope='col'>PPL</th>";
-		echo "</tr>";
-		echo "</thead>";
-		echo "<tbody>";
-		echo "<tr>";
-		echo "<td>" . $cost_result[0][0] . "</td>";
-		echo "<td>" . $revenue_result[0][0] . "</td>";
-		echo "<td>" . $profit_result . "</td>";
-		echo "<td>" . $ppl_result[0][0] . "</td>";
-		echo "</tr>";
-		echo "</tbody>";
-		echo "</table>";
-
-		echo "<h1>Overview Lenses</h1>";
-
-		echo "<table class='table table-striped table-sm'>";
-		echo "<thead>";
-		echo "<tr>";
-		echo "<th scope='col'>Lens count</th>";
-		echo "<th scope='col'>Lenses sold</th>";
-		echo "<th scope='col'>Lenses in stock</th>";
-		echo "</tr>";
-		echo "</thead>";
-		echo "<tbody>";
-		echo "<tr>";
-		echo "<td>" . $lens_all . "</td>";
-		echo "<td>" . $lens_count_sold_result[0][0] . "</td>";
-		echo "<td>" . $lens_count_stock_result[0][0] . "</td>";
-		echo "</tr>";
-		echo "</tbody>";
-		echo "</table>";
-
-		echo "<h1>Lenses</h1>";
-
-		echo "<table class='table table-striped'>";
-		echo "<thead>";
-		echo "<tr>";
-		echo "<th scope='col'>Name</th>";
-		echo "<th scope='col'>Focal Length</th>";
-		echo "<th scope='col'>Focal</th>";
-		echo "<th scope='col'>Price In</th>";
-		echo "<th scope='col'>Price Out</th>";
-		echo "<th scope='col'>Outcome</th>";
-		echo "<th scope='col'>Condition</th>";
-		echo "<th scope='col'>Notes</th>";
-		echo "<th scope='col'>Edit</th>";
-		echo "</tr>";
-		echo "</thead>";
-		echo "<tbody>";
-		foreach($result as $row){
-			$obj = new ListObject($row['id'], $row['name'], $row['price_in'], $row['price_out'], $row['focal_length'], $row['focal'], $row['condition'], $row['notes']);
-
-			$obj->print_object();
-
+		$condition = $_POST["condition"];
+		$notes = $_POST["notes"];
+		$focal_length = $_POST["focal_length"];
+		$focal = $_POST["focal"];
+		$mount = $_POST["mount"];
+		$price_in = $_POST["price_in"];
+		$price_out = $_POST["price_out"];
+		$insert->bindParam(':name', $name);
+		$insert->bindParam(':condition', $condition);
+		$insert->bindParam(':notes', $notes);
+		$insert->bindParam(':focal_length', $focal_length);
+		$insert->bindParam(':focal', $focal);
+		$insert->bindParam(':mount', $mount);
+		$insert->bindParam(':price_in', $price_in);
+		$insert->bindParam(':price_out', $price_out);
+		$success = $insert->execute();
+		if ($success){
+			echo("<h1>Lens added!</h1>");
+		} else {
+			echo("<h1>Error Adding Lens</h1>");
 		}
 
-		echo "</tbody></table>";
+	}
+
+	$query = $dbh->prepare("SELECT * from lenses");
+	$query->execute();
+
+	$result = $query->fetchAll();
+
+	$cost = $dbh->prepare("SELECT sum(price_in) from lenses");
+	$cost->execute();
+
+	$cost_result = $cost->fetchAll();
+
+	$revenue = $dbh->prepare("SELECT sum(price_out) from lenses");
+	$revenue->execute();
+
+	$revenue_result = $revenue->fetchAll();
+
+	$profit_result = ($cost_result[0][0] - $revenue_result[0][0]) * (-1);
+
+	$lens_count_sold = $dbh->prepare("SELECT count(id) from lenses WHERE price_out != 0");
+	$lens_count_sold->execute();
+
+	$lens_count_sold_result = $lens_count_sold->fetchAll();
+
+	$lens_count_stock = $dbh->prepare("SELECT count(id) from lenses WHERE price_out = 0");
+	$lens_count_stock->execute();
+
+	$lens_count_stock_result = $lens_count_stock->fetchAll();
+
+	$misc = $dbh->prepare("SELECT sum(price) from misc");
+	$misc->execute();
+
+	$misc_result = $misc->fetchAll()[0][0];
+
+	$profit_result -= $misc_result;
+
+	$lens_all = intval($lens_count_stock_result[0][0]) + intval($lens_count_sold_result[0][0]);
+
+	$ppl_result = round($profit_result / intval($lens_count_stock_result[0][0]),2) * (-1);
+
+	echo "<h1>Overview Money</h1>";
+
+	echo "<table class='table table-striped table-sm'>";
+	echo "<thead>";
+	echo "<tr>";
+	echo "<th scope='col'>Cost</th>";
+	echo "<th scope='col'>Revenue</th>";
+	echo "<th scope='col'>Profit</th>";
+	echo "<th scope='col'>PPL</th>";
+	echo "<th scope='col'>Misc Cost/Revenue <a role='button' class='btn btn-link btn-sm' data-toggle='modal' data-target='.bd-example-modal-sm'><small>Add</small></a></th>";
+	echo "</tr>";
+	echo "</thead>";
+	echo "<tbody>";
+	echo "<tr>";
+	echo "<td>" . $cost_result[0][0] . "</td>";
+	echo "<td>" . $revenue_result[0][0] . "</td>";
+	echo "<td>" . $profit_result . "</td>";
+	echo "<td>" . $ppl_result . "</td>";
+	echo "<td>" . $misc_result . "</td>";
+	echo "</tr>";
+	echo "</tbody>";
+	echo "</table>";
+
+	echo "<h1>Overview Lenses</h1>";
+
+	echo "<table class='table table-striped table-sm'>";
+	echo "<thead>";
+	echo "<tr>";
+	echo "<th scope='col'>Lens count</th>";
+	echo "<th scope='col'>Lenses sold</th>";
+	echo "<th scope='col'>Lenses in stock</th>";
+	echo "</tr>";
+	echo "</thead>";
+	echo "<tbody>";
+	echo "<tr>";
+	echo "<td>" . $lens_all . "</td>";
+	echo "<td>" . $lens_count_sold_result[0][0] . "</td>";
+	echo "<td>" . $lens_count_stock_result[0][0] . "</td>";
+	echo "</tr>";
+	echo "</tbody>";
+	echo "</table>";
+
+	echo "<h1>Lenses</h1>";
+
+	echo "<table class='table table-striped'>";
+	echo "<thead>";
+	echo "<tr>";
+	echo "<th scope='col'>Name</th>";
+	echo "<th scope='col'>Focal Length</th>";
+	echo "<th scope='col'>Focal</th>";
+	echo "<th scope='col'>Price In</th>";
+	echo "<th scope='col'>Price Out</th>";
+	echo "<th scope='col'>Outcome</th>";
+	echo "<th scope='col'>Condition</th>";
+	echo "<th scope='col'>Notes</th>";
+	echo "<th scope='col'>Edit</th>";
+	echo "</tr>";
+	echo "</thead>";
+	echo "<tbody>";
+	foreach($result as $row){
+		$obj = new ListObject($row['id'], $row['name'], $row['price_in'], $row['price_out'], $row['focal_length'], $row['focal'], $row['condition'], $row['notes']);
+
+		$obj->print_object();
+
+	}
+
+	echo "</tbody></table>";
 
 	?>
 
@@ -210,43 +216,117 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
 <script type="text/javascript">
 
-			var request;
+	var request;
 
-			function edit(event_id) {
-				if (request) {
-        			request.abort();
-    			}
+	function edit(event_id) {
+		if (request) {
+			request.abort();
+		}
 
-    			var e_id = event_id
-    			var e_name = $("#" + event_id).children().eq(0).text();
-    			var e_focal_length = $("#" + event_id).children().eq(1).text();
-    			var e_focal = $("#" + event_id).children().eq(2).text();
-    			var e_price_in = $("#" + event_id).children().eq(3).text();
-    			var e_price_out = $("#" + event_id).children().eq(4).text();
-    			var e_condition = $("#" + event_id).children().eq(6).text();
-    			var e_notes = $("#" + event_id).children().eq(7).text();
+		var e_id = event_id
+		var e_name = $("#" + event_id).children().eq(0).text();
+		var e_focal_length = $("#" + event_id).children().eq(1).text();
+		var e_focal = $("#" + event_id).children().eq(2).text();
+		var e_price_in = $("#" + event_id).children().eq(3).text();
+		var e_price_out = $("#" + event_id).children().eq(4).text();
+		var e_condition = $("#" + event_id).children().eq(6).text();
+		var e_notes = $("#" + event_id).children().eq(7).text();
 
-    			request = $.ajax({
-        			url: "edit.php",
-        			type: "post",
-        			data: {
-        				id : e_id,
-        				name: e_name,
-        				focal_length: e_focal_length,
-        				focal: e_focal,
-        				price_in: e_price_in,
-        				price_out: e_price_out,
-        				condition: e_condition,
-        				notes: e_notes
-        			}
-    			});
+		request = $.ajax({
+			url: "edit.php",
+			type: "post",
+			data: {
+				id : e_id,
+				name: e_name,
+				focal_length: e_focal_length,
+				focal: e_focal,
+				price_in: e_price_in,
+				price_out: e_price_out,
+				condition: e_condition,
+				notes: e_notes
+			}
+		});
 
-    			request.done(function (response, textStatus, jqXHR){
+		request.done(function (response, textStatus, jqXHR){
         			// Log a message to the console
         			alert('Lens edited successfully!');
-    			});
-			}
+        		});
+	}
 
-		</script>
+</script>
+
+<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">New entry</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form id="misc_form">
+					<div class="form-group">
+						<label class="form-control-label" for="price_input">Price:</label>
+						<input class="form-control" id="price_input" type="text" name="price" placeholder="Price">
+					</div>
+					<div class="form-group">
+						<label class="form-control-label" for="item_input">Item:</label>
+						<input class="form-control" id="item_input" type="text" name="item" placeholder="Item">
+					</div>
+					<div class="form-group">
+						<button type="submit" class="btn btn-primary form-control">Submit</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$('#misc_form').submit(function(event) {
+		event.preventDefault();
+
+		if (request) {
+			request.abort();
+		}
+
+		var $form = $(this);
+
+		var $inputs = $form.find("input, textarea");
+
+		var serializedData = $form.serialize();
+
+		$inputs.prop("disabled", true);
+
+		console.log('start request');
+		request = $.ajax({
+			url: "post_misc.php",
+			type: "post",
+			data: serializedData
+		});
+
+		request.done(function (response, textStatus, jqXHR){
+        			// Log a message to the console
+        			alert('Added successfully');
+        			console.log('worked');
+        		});
+
+		request.fail(function (jqXHR, textStatus, errorThrown){
+        			// Log the error to the console
+        			console.log('failed');
+        			alert(
+        				"The following error occurred: "+
+        				jqXHR.status + " " + errorThrown
+        				);
+        		});
+
+		request.always(function () {
+        			// Reenable the inputs
+        			console.log('Nothing');
+        			$inputs.prop("disabled", false);
+        		});
+	});
+
+</script>
 </body>
 </html>
